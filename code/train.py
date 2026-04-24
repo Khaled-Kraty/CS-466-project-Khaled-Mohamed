@@ -1,5 +1,4 @@
 import pandas as pd
-
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
@@ -14,37 +13,32 @@ results = []
 for dataset_name in datasets:
     print(f"\nRunning {dataset_name}")
 
-    # load dataset
     df = pd.read_csv(f"../data/{dataset_name}")
 
-    # remove empty rows
+    # Remove empty rows
     df = df.dropna()
 
-    # target is the last column
+    # Assume target is the last column
     X = df.iloc[:, :-1]
     y = df.iloc[:, -1]
 
-    # convert text target to numbers if needed
-    if y.dtype == "object":
-        y = y.map({"negative": 0, "positive": 1})
+    # If target is continuous, convert it to binary classes
+    if y.dtype != "object" and y.nunique() > 2:
+        y = (y >= y.median()).astype(int)
 
-    # convert categorical/text features to numbers
+    # Convert text/categorical columns to numbers
     X = pd.get_dummies(X)
 
-    # split data: 80% training, 20% testing
+    # Split data
     X_train, X_test, y_train, y_test = train_test_split(
-        X,
-        y,
-        test_size=0.2,
-        random_state=42
+        X, y, test_size=0.2, random_state=42
     )
 
-    # normalize features
+    # Normalize features
     scaler = StandardScaler()
     X_train = scaler.fit_transform(X_train)
     X_test = scaler.transform(X_test)
 
-    # models
     models = {
         "Logistic Regression": LogisticRegression(max_iter=1000),
         "Decision Tree": DecisionTreeClassifier(random_state=42),
@@ -72,7 +66,6 @@ for dataset_name in datasets:
             f1
         ])
 
-# save results
 results_df = pd.DataFrame(
     results,
     columns=["Dataset", "Model", "Accuracy", "Precision", "Recall", "F1-score"]

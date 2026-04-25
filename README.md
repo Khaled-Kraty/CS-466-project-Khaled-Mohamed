@@ -10,7 +10,9 @@ This project implements preliminary machine learning models for heart attack ris
 pip install pandas numpy scikit-learn matplotlib shap
 
 2. Run the code:
-python code/train.py
+   cd code
+   python3 train.py
+
 
 ## Folders
 - data/: contains the dataset

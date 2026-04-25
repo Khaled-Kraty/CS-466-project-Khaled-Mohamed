@@ -14,27 +14,20 @@ for dataset_name in datasets:
     print(f"\nRunning {dataset_name}")
 
     df = pd.read_csv(f"../data/{dataset_name}")
-
-    # Remove empty rows
     df = df.dropna()
 
-    # Assume target is the last column
     X = df.iloc[:, :-1]
     y = df.iloc[:, -1]
 
-    # If target is continuous, convert it to binary classes
     if y.dtype != "object" and y.nunique() > 2:
         y = (y >= y.median()).astype(int)
 
-    # Convert text/categorical columns to numbers
-    X = pd.get_dummies(X)
 
-    # Split data
+    X = pd.get_dummies(X)
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=42
     )
 
-    # Normalize features
     scaler = StandardScaler()
     X_train = scaler.fit_transform(X_train)
     X_test = scaler.transform(X_test)

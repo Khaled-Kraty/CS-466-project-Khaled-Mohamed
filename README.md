@@ -1,20 +1,32 @@
-# CS-446-project-Khaled-Mohamed
+# Heart Attack Risk Prediction Project
 
-# Heart Attack Risk Prediction - P3
-
-## Description
-This project implements preliminary machine learning models for heart attack risk prediction and extends the original work with explainability and calibration analysis.
+This project implements machine learning models for heart attack risk prediction and extends the original work with explainability (SHAP) and calibration concepts.
 
 ## How to Run
-1. Install requirements:
-pip install pandas numpy scikit-learn matplotlib shap
+
+1. Install dependencies:
+
+```
+pip install -r requirements.txt
+```
 
 2. Run the code:
-   cd code
-   python3 train.py
 
+```
+cd code
+python train.py
+```
 
-## Folders
-- data/: contains the dataset
-- code/: contains the implementation
-- results/: contains output results
+## Output
+
+Results will be saved in:
+
+```
+results/results_table.csv
+```
+
+## Project Structure
+
+* `data/` : contains the datasets
+* `code/` : contains the implementation (`train.py`)
+* `results/` : contains output results

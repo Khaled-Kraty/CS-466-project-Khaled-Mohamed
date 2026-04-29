@@ -24,7 +24,10 @@ Results will be saved in:
 ```
 results/results_table.csv
 ```
-
+SHAP plots are saved in:
+```
+results/
+```
 ## Project Structure
 
 * `data/` : contains the datasets
